@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { selectLocationsIds } from "./slice";
-import { LocationEntity, LocationsState } from "./types";
+import { LocationEntity } from "./types";
 import { ID, rickMortyApiClient } from "@/features/api";
 import { normalizeLocation } from "./utils";
 import { RootState } from "@/store";

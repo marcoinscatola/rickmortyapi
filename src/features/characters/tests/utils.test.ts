@@ -1,5 +1,4 @@
 import { normalizeCharacter } from "../utils";
-import * as API_FIXTURES from "@/features/api/tests/fixtures";
 import { CharacterEntity, CharacterFromApi } from "..";
 
 const characterFromApi: CharacterFromApi = {

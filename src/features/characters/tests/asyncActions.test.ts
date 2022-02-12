@@ -21,7 +21,7 @@ describe("requestCharactersPage", () => {
       .mock(/api\/character/, API_FIXTURES.paginatedCharacters)
       .mock(/api\/episode/, API_FIXTURES.episodes)
       .mock(/api\/location/, API_FIXTURES.locations);
-    await store.dispatch(requestCharactersPage("1"));
+    await store.dispatch(requestCharactersPage(1));
     expect(mock.called(/api\/character/)).toBe(true);
   });
 
@@ -30,7 +30,7 @@ describe("requestCharactersPage", () => {
       .mock(/api\/character/, API_FIXTURES.paginatedCharacters)
       .mock(/api\/episode/, API_FIXTURES.episodes)
       .mock(/api\/location/, API_FIXTURES.locations);
-    await store.dispatch(requestCharactersPage("1"));
+    await store.dispatch(requestCharactersPage(1));
     expect(mock.called(/api\/episode/)).toBe(true);
     expect(mock.called(/api\/location/)).toBe(true);
   });
@@ -40,7 +40,7 @@ describe("requestCharactersPage", () => {
       .mock(/api\/character/, API_FIXTURES.paginatedCharacters)
       .mock(/api\/episode/, API_FIXTURES.episodes)
       .mock(/api\/location/, API_FIXTURES.locations);
-    await store.dispatch(requestCharactersPage("1"));
+    await store.dispatch(requestCharactersPage(1));
     const state = store.getState();
     expect(state.characters.ids).toHaveLength(
       API_FIXTURES.paginatedCharacters.results.length
@@ -55,7 +55,7 @@ describe("requestCharactersPage", () => {
       .mock(/api\/character/, API_FIXTURES.paginatedCharacters)
       .mock(/api\/episode/, API_FIXTURES.episodes)
       .mock(/api\/location/, API_FIXTURES.locations);
-    await store.dispatch(requestCharactersPage("1"));
+    await store.dispatch(requestCharactersPage(1));
     const state = store.getState();
     expect(state.locations.ids).toHaveLength(API_FIXTURES.locations.length);
     expect(Object.values(state.locations.entities)).toEqual(

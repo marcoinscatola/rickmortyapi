@@ -1,7 +1,7 @@
 import { charactersSlice } from "@/features/characters";
 import { episodesSlice } from "@/features/episodes";
 import { locationsSlice } from "@/features/locations";
-import { configureStore, ConfigureStoreOptions } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import { RootState } from ".";
 
 // This is a workaround to avoid a circular type dependency.

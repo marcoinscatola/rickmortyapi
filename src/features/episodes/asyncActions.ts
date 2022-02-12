@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ID, rickMortyApiClient } from "@/features/api";
 import { selectEpisodesIds } from "./slice";
-import { EpisodesState, EpisodeEntity } from "./types";
+import { EpisodeEntity } from "./types";
 import { normalizeEpisode } from "./utils";
 import { RootState } from "@/store";
 

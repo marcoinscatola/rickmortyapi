@@ -2,12 +2,10 @@ import {
   createEntityAdapter,
   createSelector,
   createSlice,
-  EntityState,
 } from "@reduxjs/toolkit";
 import { RootState } from "@/store";
 import { requestCharactersPage } from "./asyncActions";
 import { CharacterEntity, CharactersState, PageState } from "./types";
-import { ID } from "../api";
 
 const initialState: CharactersState = {
   ids: [],

@@ -1,9 +1,5 @@
 import { RootState } from "@/store";
-import {
-  createEntityAdapter,
-  createSlice,
-  EntityState,
-} from "@reduxjs/toolkit";
+import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 import { requestLocations } from "./asyncActions";
 import { LocationEntity, LocationsState } from "./types";
 

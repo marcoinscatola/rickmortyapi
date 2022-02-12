@@ -1,9 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ID, PaginatedApiSuccess, rickMortyApiClient } from "@/features/api";
 import { requestEpisodes } from "@/features/episodes";
+import { requestLocations } from "@/features/locations";
+import { RootState } from "@/store";
 import { normalizeCharacter } from "./utils";
 import { CharacterEntity } from "./types";
-import { requestLocations } from "@/features/locations";
 
 /**
  * Async thunk action that fetches a page of characters, collects
@@ -14,7 +15,7 @@ import { requestLocations } from "@/features/locations";
 export const requestCharactersPage = createAsyncThunk<
   PaginatedApiSuccess<CharacterEntity>,
   number,
-  { rejectValue: string | Error }
+  { rejectValue: string | Error; state: RootState }
 >("api/requestCharacterPage", async (page, thunkApi) => {
   try {
     const apiResult = await rickMortyApiClient.getCharactersByPage(page);
@@ -32,7 +33,6 @@ export const requestCharactersPage = createAsyncThunk<
       }
       episode.forEach((ep) => episodes.add(ep));
     });
-
     await thunkApi.dispatch(requestEpisodes(Array.from(episodes)));
     await thunkApi.dispatch(requestLocations(Array.from(locations)));
 

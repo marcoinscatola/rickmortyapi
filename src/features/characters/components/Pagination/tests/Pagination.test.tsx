@@ -1,5 +1,5 @@
 import { Pagination } from "..";
-import { expectVisible, render } from "@/test/test-utils";
+import { render } from "@/test/test-utils";
 
 describe("Pagination", () => {
   it("renders the current page and links to other pages", () => {

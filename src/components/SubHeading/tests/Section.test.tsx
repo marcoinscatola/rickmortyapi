@@ -1,5 +1,5 @@
 import { SubHeading } from "..";
-import { expectVisible, render } from "@/test/test-utils";
+import { render } from "@/test/test-utils";
 
 describe("SubHeading", () => {
   it("renders the text", () => {
