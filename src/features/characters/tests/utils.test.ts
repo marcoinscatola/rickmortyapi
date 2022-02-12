@@ -30,10 +30,10 @@ const expected: CharacterEntity = {
   species: characterFromApi.species,
   type: characterFromApi.type,
   gender: characterFromApi.gender,
-  origin: "7",
-  location: "9",
+  origin: 7,
+  location: 9,
   image: "https://example.com/test.png",
-  episode: ["1", "2"],
+  episode: [1, 2],
   url: "https://example.com/character/1",
   created: characterFromApi.created,
 };

@@ -1,4 +1,20 @@
 import { BaseEntity, ID } from "@/features/api";
+import { EntityState } from "@reduxjs/toolkit";
+
+export interface PageState {
+  status: "loading" | "loaded" | "error";
+  ids?: ID[];
+  error: string | null;
+}
+export interface CharactersState extends EntityState<CharacterEntity> {
+  pages: {
+    [key: string]: PageState;
+  };
+  pagination: {
+    current: number;
+    pages?: number;
+  };
+}
 
 export interface CharacterEntity extends BaseEntity {
   id: ID;

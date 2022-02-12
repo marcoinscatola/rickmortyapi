@@ -5,9 +5,7 @@ import {
   EntityState,
 } from "@reduxjs/toolkit";
 import { requestLocations } from "./asyncActions";
-import { LocationEntity } from "./types";
-
-interface LocationsState extends EntityState<LocationEntity> {}
+import { LocationEntity, LocationsState } from "./types";
 
 const initialState: LocationsState = {
   ids: [],
@@ -33,7 +31,9 @@ export const locationsSlice = createSlice<LocationsState, {}, "locations">({
 });
 
 const selectors = locationsAdapter.getSelectors<RootState>(
-  (state) => state[locationsSlice.name]
+  (state) => state["locations"]
 );
 
 export const selectLocationById = selectors.selectById;
+
+export const selectLocationsIds = selectors.selectIds;

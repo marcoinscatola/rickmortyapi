@@ -19,7 +19,7 @@ const expected: LocationEntity = {
   name: locationFromApi.name,
   type: locationFromApi.type,
   dimension: locationFromApi.dimension,
-  residents: ["1", "2"],
+  residents: [1, 2],
   url: locationFromApi.url,
   created: locationFromApi.created,
 };

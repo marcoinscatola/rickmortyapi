@@ -4,6 +4,7 @@ const Home: NextPage = () => {
   return null;
 };
 
+// The index will simply redirect to the first characters page
 export const getStaticProps: GetStaticProps<
   {},
   { page: string }

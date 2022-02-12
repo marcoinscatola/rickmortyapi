@@ -1,7 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { EpisodeEntity, EpisodeFromApi } from ".";
 import { ID, rickMortyApiClient } from "@/features/api";
+import { selectEpisodesIds } from "./slice";
+import { EpisodesState, EpisodeEntity } from "./types";
 import { normalizeEpisode } from "./utils";
+import { RootState } from "@/store";
 
 /**
  * Async thunk action that fetches a set of episodes given
@@ -11,10 +13,19 @@ import { normalizeEpisode } from "./utils";
 export const requestEpisodes = createAsyncThunk<
   EpisodeEntity[],
   ID[],
-  { rejectValue: string | Error }
+  { rejectValue: string | Error; state: RootState }
 >("api/requestEpisodes", async (ids, thunkApi) => {
   try {
-    const apiResult = await rickMortyApiClient.getEpisodesByIds(ids);
+    const availableEpisodesIds = selectEpisodesIds(thunkApi.getState());
+    const missingEpisodesIds = ids.filter(
+      (id) => !availableEpisodesIds.includes(id)
+    );
+    if (!missingEpisodesIds.length) {
+      return [];
+    }
+    const apiResult = await rickMortyApiClient.getEpisodesByIds(
+      missingEpisodesIds
+    );
     const episodes = apiResult instanceof Array ? apiResult : [apiResult];
     const normalizedEpisodes = episodes.map(normalizeEpisode);
     return normalizedEpisodes;

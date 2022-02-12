@@ -6,23 +6,8 @@ import {
 } from "@reduxjs/toolkit";
 import { RootState } from "@/store";
 import { requestCharactersPage } from "./asyncActions";
-import { CharacterEntity } from "./types";
+import { CharacterEntity, CharactersState, PageState } from "./types";
 import { ID } from "../api";
-
-interface PageState {
-  status: "loading" | "loaded" | "error";
-  ids?: ID[];
-  error: string | null;
-}
-interface CharactersState extends EntityState<CharacterEntity> {
-  pages: {
-    [key: string]: PageState;
-  };
-  pagination: {
-    current: number;
-    pages?: number;
-  };
-}
 
 const initialState: CharactersState = {
   ids: [],

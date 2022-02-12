@@ -1,7 +1,12 @@
+import type { CharactersState } from "@/features/characters";
+import type { EpisodesState } from "@/features/episodes";
+import type { LocationsState } from "@/features/locations";
 import type { Store } from "./createStore";
 
-// We infer the `RootState` type from the store `getState` method so that the
-// state shape is always up to date with the reducers used in `configureStore`
-export type RootState = ReturnType<Store["getState"]>;
+export type RootState = {
+  characters: CharactersState;
+  locations: LocationsState;
+  episodes: EpisodesState;
+};
 
 export type AppDispatch = Store["dispatch"];

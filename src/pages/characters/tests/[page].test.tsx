@@ -46,8 +46,6 @@ describe("CharacterPage", () => {
       API_FIXTURES.paginatedCharacters.results.length
     );
     expect(mock.called(/api\/character/)).toBe(true);
-    expect(mock.called(/api\/episode/)).toBe(true);
-    expect(mock.called(/api\/location/)).toBe(true);
   });
 
   it("renders an error message if the `error` prop is present", () => {

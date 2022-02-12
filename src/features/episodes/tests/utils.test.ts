@@ -19,7 +19,7 @@ const expected: EpisodeEntity = {
   name: episodeFromApi.name,
   episode: episodeFromApi.episode,
   air_date: episodeFromApi.air_date,
-  characters: ["1", "2"],
+  characters: [1, 2],
   url: "https://example.com/episode/1",
   created: episodeFromApi.created,
 };

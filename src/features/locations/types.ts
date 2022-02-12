@@ -1,5 +1,7 @@
 import { BaseEntity, ID } from "@/features/api";
+import { EntityState } from "@reduxjs/toolkit";
 
+export interface LocationsState extends EntityState<LocationEntity> {}
 export interface LocationEntity extends BaseEntity {
   id: ID;
   name: string;

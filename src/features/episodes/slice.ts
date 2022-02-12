@@ -5,9 +5,7 @@ import {
   EntityState,
 } from "@reduxjs/toolkit";
 import { requestEpisodes } from "./asyncActions";
-import { EpisodeEntity } from "./types";
-
-interface EpisodesState extends EntityState<EpisodeEntity> {}
+import { EpisodeEntity, EpisodesState } from "./types";
 
 const initialState: EpisodesState = {
   ids: [],
@@ -34,7 +32,9 @@ export const episodesSlice = createSlice<EpisodesState, {}, "episodes">({
 });
 
 const selectors = episodesAdapter.getSelectors<RootState>(
-  (state) => state[episodesSlice.name]
+  (state) => state["episodes"]
 );
 
 export const selectEpisodeById = selectors.selectById;
+
+export const selectEpisodesIds = selectors.selectIds;
