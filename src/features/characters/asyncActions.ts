@@ -34,6 +34,7 @@ export const requestCharactersPage = createAsyncThunk<
 
     await thunkApi.dispatch(requestEpisodes(Array.from(episodes)));
     await thunkApi.dispatch(requestLocations(Array.from(locations)));
+
     return characters;
   } catch (e) {
     return thunkApi.rejectWithValue(e as Error);

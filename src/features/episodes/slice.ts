@@ -16,7 +16,7 @@ const initialState: EpisodesState = {
 
 const episodesAdapter = createEntityAdapter<EpisodeEntity>();
 
-export const episodesSlice = createSlice({
+export const episodesSlice = createSlice<EpisodesState, {}, "episodes">({
   name: "episodes",
   initialState,
   reducers: {},

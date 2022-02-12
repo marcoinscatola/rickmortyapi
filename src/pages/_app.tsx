@@ -1,8 +1,11 @@
-import "../styles/globals.css";
-import type { AppContext, AppProps } from "next/app";
+import type { AppProps } from "next/app";
 import { useMemo } from "react";
-import { createStore, RootState } from "@/store";
 import { Provider } from "react-redux";
+import { ThemeProvider } from "styled-components";
+import { createStore, RootState } from "@/store";
+import { theme } from "@/theme";
+import { GlobalStyle } from "@/theme/GlobalStyles";
+import { Header } from "@/components";
 
 function MyApp({
   Component,
@@ -12,10 +15,15 @@ function MyApp({
     () => createStore(pageProps.initialState),
     [pageProps.initialState]
   );
+
   return (
-    <Provider store={store}>
-      <Component {...pageProps} />
-    </Provider>
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <Provider store={store}>
+        <Header title="Rick &amp; Morty Characters" />
+        <Component {...pageProps} />
+      </Provider>
+    </ThemeProvider>
   );
 }
 

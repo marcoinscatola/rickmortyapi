@@ -16,7 +16,7 @@ const initialState: LocationsState = {
 
 const locationsAdapter = createEntityAdapter<LocationEntity>();
 
-export const locationsSlice = createSlice({
+export const locationsSlice = createSlice<LocationsState, {}, "locations">({
   name: "locations",
   initialState,
   reducers: {},

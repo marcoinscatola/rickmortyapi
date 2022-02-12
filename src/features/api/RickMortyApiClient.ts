@@ -37,7 +37,7 @@ export class RickMortyApiClient {
    */
   constructor(baseUrl: string, fetchMethod = fetch) {
     this.baseUrl = baseUrl;
-    this.fetch = fetchMethod;
+    this.fetch = fetchMethod.bind(globalThis);
   }
 
   /**

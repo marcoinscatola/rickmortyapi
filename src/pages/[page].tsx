@@ -1,5 +1,19 @@
-import HomePage, { getStaticProps, getStaticPaths } from ".";
+import { GetStaticPaths } from "next";
+import HomePage, { getStaticProps } from ".";
 
 export default HomePage;
 
-export { getStaticProps, getStaticPaths };
+export const getStaticPaths: GetStaticPaths<{ page: string }> = (ctx) => {
+  return {
+    paths: [
+      {
+        params: {
+          page: "1",
+        },
+      },
+    ],
+    fallback: "blocking",
+  };
+};
+
+export { getStaticProps };
