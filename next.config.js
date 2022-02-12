@@ -5,6 +5,9 @@ const nextConfig = {
     domains: ["rickandmortyapi.com"],
   },
   pageExtensions: ["page.tsx", "page.ts", "page.jsx", "page.js"],
+  experimental: {
+    outputStandalone: true,
+  },
 };
 
 module.exports = nextConfig;
