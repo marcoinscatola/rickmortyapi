@@ -1,6 +1,6 @@
 ### Rick & Morty character wiki
 
-This is a simple application that displays the profile of the characters using the [Rick & Morty API](rickandmortyapi.com).
+This is a simple application that displays the profile of the characters using the [Rick & Morty API](https://rickandmortyapi.com).
 
 [**Demo**](http://209.97.131.160:56000)
 
