@@ -1,11 +1,11 @@
-import type { GetStaticProps, NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 
 const Home: NextPage = () => {
   return null;
 };
 
 // The index will simply redirect to the first characters page
-export const getStaticProps: GetStaticProps<
+export const getServerSideProps: GetServerSideProps<
   {},
   { page: string }
 > = async () => {

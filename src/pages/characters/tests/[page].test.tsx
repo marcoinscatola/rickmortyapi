@@ -1,4 +1,4 @@
-import CharacterPage from "../[page]";
+import CharacterPage from "../[page].page";
 import { render, fetch } from "@/test/test-utils";
 import * as STORE_FIXTURES from "@/store/tests/fixtures";
 import * as API_FIXTURES from "@/features/api/tests/fixtures";

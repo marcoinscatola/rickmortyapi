@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import range from "lodash/range";
 import { Grid, Section, SubHeading } from "@/components";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import {
   Character,
   Pagination,
@@ -9,9 +12,8 @@ import {
   selectPagination,
 } from "@/features/characters";
 import { useAppDispatch, useAppSelector, createStore } from "@/store";
-import Link from "next/link";
 import { spacing } from "@/theme";
-import { useRouter } from "next/router";
+import { rickMortyApiClient } from "@/features/api";
 
 const CharactersPage: NextPage = () => {
   const router = useRouter();
@@ -109,17 +111,26 @@ export const getStaticProps: GetStaticProps<{}, { page: string }> = async (
   }
 };
 
-export const getStaticPaths: GetStaticPaths<{ page: string }> = (ctx) => {
-  return {
-    paths: [
-      {
-        params: {
-          page: "1",
+export const getStaticPaths: GetStaticPaths<{ page: string }> = async (ctx) => {
+  try {
+    const apiResult = await rickMortyApiClient.getCharactersByPage(1);
+    const pagesRange = range(1, apiResult.info.pages + 1);
+    return {
+      paths: pagesRange.map((page) => ({ params: { page: page.toFixed() } })),
+      fallback: "blocking",
+    };
+  } catch (e) {
+    return {
+      paths: [
+        {
+          params: {
+            page: "1",
+          },
         },
-      },
-    ],
-    fallback: "blocking",
-  };
+      ],
+      fallback: "blocking",
+    };
+  }
 };
 
 export default CharactersPage;
