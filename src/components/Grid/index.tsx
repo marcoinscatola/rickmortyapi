@@ -21,5 +21,5 @@ Grid.propTypes = {
 };
 
 Grid.defaultProps = {
-  minWidth: 400,
+  minWidth: 360,
 };

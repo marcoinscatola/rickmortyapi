@@ -5,11 +5,23 @@ import { charactersSlice, selectCharacterById } from "../slice";
 import * as FIXTURES from "./fixtures";
 
 const nullAction = createAction("null");
+const testPage = 1;
 const requestCharactersPageFulfilledAction = requestCharactersPage.fulfilled(
-  FIXTURES.characters,
+  FIXTURES.paginatedResult,
   "",
-  1
+  testPage
 );
+
+const requestCharactersPagePendingAction = requestCharactersPage.pending(
+  "",
+  testPage
+);
+
+const requestCharactersPageRejectedWithErrorAction =
+  requestCharactersPage.rejected(new Error("Test error"), "", testPage);
+
+const requestCharactersPageRejectedWithErrorMessageAction =
+  requestCharactersPage.rejected(null, "", testPage, "Test error message");
 
 describe("charactersSlice", () => {
   describe("reducer", () => {
@@ -19,6 +31,10 @@ describe("charactersSlice", () => {
       expect(state).toEqual({
         ids: [],
         entities: {},
+        pages: {},
+        pagination: {
+          current: -1,
+        },
       });
     });
 
@@ -27,24 +43,73 @@ describe("charactersSlice", () => {
         undefined,
         requestCharactersPageFulfilledAction
       );
+
+      const expectedIds = FIXTURES.paginatedResult.results.map((ch) => ch.id);
+
       expect(state).toMatchObject({
-        ids: expect.arrayContaining(FIXTURES.characters.map((ch) => ch.id)),
+        ids: expect.arrayContaining(expectedIds),
+        entities: expect.objectContaining(
+          FIXTURES.paginatedResult.results.reduce((curr, next) => {
+            return { ...curr, [next.id]: next };
+          }, {})
+        ),
+        pages: {
+          [testPage]: {
+            status: "loaded",
+            ids: expect.arrayContaining(expectedIds),
+          },
+        },
       });
-      expect(Object.values(state.entities)).toEqual(FIXTURES.characters);
     });
 
-    it("ignores other actions", () => {
-      const expectedState = charactersSlice.getInitialState();
-      let nextState = charactersSlice.reducer(undefined, nullAction);
-      expect(nextState).toEqual(expectedState);
-      nextState = charactersSlice.reducer(undefined, { type: "test-action" });
-      expect(nextState).toEqual(expectedState);
-      // Rejected action from the thunk is ignored, the store only reacts to `fulfilled`
-      nextState = charactersSlice.reducer(undefined, {
-        type: requestCharactersPage.rejected.name,
-        payload: { test: "value" },
+    it("handles the `requestCharactersPage.pending` action", async () => {
+      const state = charactersSlice.reducer(
+        undefined,
+        requestCharactersPagePendingAction
+      );
+      expect(state).toMatchObject({
+        ids: [],
+        entities: {},
+        pages: {
+          [testPage]: {
+            status: "loading",
+          },
+        },
       });
-      expect(nextState).toEqual(expectedState);
+    });
+
+    it("handles the `requestCharactersPage.rejected` action (rejected with Error)", async () => {
+      const state = charactersSlice.reducer(
+        undefined,
+        requestCharactersPageRejectedWithErrorAction
+      );
+      expect(state).toMatchObject({
+        ids: [],
+        entities: {},
+        pages: {
+          [testPage]: {
+            status: "error",
+            error: "Test error",
+          },
+        },
+      });
+    });
+
+    it("handles the `requestCharactersPage.rejected` action (rejected with error message)", async () => {
+      const state = charactersSlice.reducer(
+        undefined,
+        requestCharactersPageRejectedWithErrorMessageAction
+      );
+      expect(state).toMatchObject({
+        ids: [],
+        entities: {},
+        pages: {
+          [testPage]: {
+            status: "error",
+            error: "Test error message",
+          },
+        },
+      });
     });
   });
 });

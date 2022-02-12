@@ -4,8 +4,8 @@ import { color, spacing } from "@/theme";
 
 export const Card = styled.article`
   display: grid;
-  grid-template-columns: 200px 1fr;
-  grid-template-rows: 200px 1fr;
+  grid-template-columns: 180px 1fr;
+  grid-template-rows: 180px 1fr;
   border-radius: ${spacing(3)};
   overflow: hidden;
   background: ${color("highlight")};

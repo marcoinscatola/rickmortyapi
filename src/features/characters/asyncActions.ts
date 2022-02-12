@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { ID, rickMortyApiClient } from "@/features/api";
+import { ID, PaginatedApiSuccess, rickMortyApiClient } from "@/features/api";
 import { requestEpisodes } from "@/features/episodes";
 import { normalizeCharacter } from "./utils";
 import { CharacterEntity } from "./types";
@@ -12,8 +12,8 @@ import { requestLocations } from "@/features/locations";
  * @param page The page to fetch.
  */
 export const requestCharactersPage = createAsyncThunk<
-  CharacterEntity[],
-  string | number,
+  PaginatedApiSuccess<CharacterEntity>,
+  number,
   { rejectValue: string | Error }
 >("api/requestCharacterPage", async (page, thunkApi) => {
   try {
@@ -21,6 +21,7 @@ export const requestCharactersPage = createAsyncThunk<
 
     const locations = new Set<ID>();
     const episodes = new Set<ID>();
+    const info = apiResult.info;
     const characters = apiResult.results.map(normalizeCharacter);
     characters.forEach(({ origin, location, episode }) => {
       if (origin) {
@@ -35,7 +36,10 @@ export const requestCharactersPage = createAsyncThunk<
     await thunkApi.dispatch(requestEpisodes(Array.from(episodes)));
     await thunkApi.dispatch(requestLocations(Array.from(locations)));
 
-    return characters;
+    return {
+      info,
+      results: characters,
+    };
   } catch (e) {
     return thunkApi.rejectWithValue(e as Error);
   }

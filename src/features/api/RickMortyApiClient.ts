@@ -87,7 +87,7 @@ export class RickMortyApiClient {
    */
   private async getPaginatedResource<R extends BaseEntity>(
     endpoint: string,
-    page: number | string
+    page: number
   ): Promise<PaginatedApiSuccess<R>> {
     const resourceUrl = new URL(endpoint, this.baseUrl);
     const pageAsString = typeof page === "number" ? page.toFixed() : page;
@@ -110,7 +110,7 @@ export class RickMortyApiClient {
    * @param page The page to request.
    * @returns
    */
-  async getCharactersByPage(page: string | number) {
+  async getCharactersByPage(page: number) {
     return this.getPaginatedResource<CharacterFromApi>(
       entityTypeEndpoint.characters,
       page
